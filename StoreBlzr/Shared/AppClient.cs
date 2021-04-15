@@ -1,17 +1,16 @@
 using System;
-using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using Shared;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Identity;
 
-namespace Server.Models
+namespace Shared
 {
-    public class AppUser : IdentityUser
+    public class AppClient : IdentityUser
     {
         [Required, StringLength(100)] public string FirstName { get; set; }
         [AllowNull, StringLength(100)] public string LastName { get; set; }
         [AllowNull] public DateTime BirthDate { get; set; }
-        [Required] public string Gender { get; set; } = Genders.Male.ToString();
+        [Required] public string Gender { get; set; }
         [Required] public string Address { get; set; }
         [Required] public string Country { get; set; }
         [Required] public string State { get; set; }

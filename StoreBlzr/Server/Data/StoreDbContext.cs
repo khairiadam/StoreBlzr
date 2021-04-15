@@ -2,12 +2,11 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Server.Models;
 using Shared;
 
 namespace Server.Data
 {
-    public class StoreDbContext : ApiAuthorizationDbContext<AppUser>
+    public class StoreDbContext : ApiAuthorizationDbContext<AppClient>
     {
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
