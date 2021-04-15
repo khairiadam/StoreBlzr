@@ -66,8 +66,6 @@ namespace StoreBlzr.Server
             services.AddAutoMapper(c =>
             {
                 c.AllowNullCollections = true;
-                // c.AllowNullDestinationValues = true;
-
             });
 
             services.AddControllersWithViews();
