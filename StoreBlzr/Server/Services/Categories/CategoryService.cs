@@ -6,6 +6,7 @@ namespace Server.Services.Categories
 {
     public class CategoryService : ICategoryService
     {
+        //TODO Each one of the group should implement one Methode
         public Task<bool> Delete(string id)
         {
             throw new System.NotImplementedException();
@@ -30,5 +31,6 @@ namespace Server.Services.Categories
         {
             throw new System.NotImplementedException();
         }
+
     }
 }
