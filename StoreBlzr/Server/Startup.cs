@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Server.Data;
 using Server.Services.Authentication;
 using Server.Services.Categories;
@@ -15,6 +17,7 @@ using Server.Services.Products;
 using Server.Services.Users;
 using Shared;
 using System.Linq;
+using System.Text;
 
 namespace StoreBlzr.Server
 {
@@ -44,7 +47,9 @@ namespace StoreBlzr.Server
                        });
 
             //!! Add Identity with Roles ===>
-            services.AddIdentity<AppClient, IdentityRole>(opt => opt.SignIn.RequireConfirmedAccount = false)
+            services.AddIdentity<AppClient, IdentityRole>(opt =>
+
+                opt.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<StoreDbContext>();
 
 
@@ -61,12 +66,40 @@ namespace StoreBlzr.Server
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICategoryService, CategoryService>();
 
+
             //!! _ AddAutoMapper
             services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(c =>
             {
                 c.AllowNullCollections = true;
             });
+
+
+
+            //!! Add JWT AUTH ===>
+            services.AddAuthentication(options =>
+                     {
+                         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                     })
+                     .AddJwtBearer(o =>
+                        {
+                            o.RequireHttpsMetadata = false;
+                            o.SaveToken = false;
+                            o.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                ValidateIssuerSigningKey = true,
+                                ValidateIssuer = true,
+                                ValidateAudience = true,
+                                ValidateLifetime = true,
+                                ValidIssuer = Configuration["Jwt:Issuer"],
+                                ValidAudience = Configuration["Jwt:Audience"],
+                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                            };
+                        });
+
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -86,6 +119,8 @@ namespace StoreBlzr.Server
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(AllowSpecificOrigins);
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
