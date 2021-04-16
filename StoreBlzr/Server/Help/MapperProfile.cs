@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Shared;
+using Shared.Dto;
 
 namespace Server.Help
 {
@@ -8,14 +9,14 @@ namespace Server.Help
     {
         public MapperProfile()
         {
-            // this.CreateMap<>();
-            // this.CreateMap<UserModel, User>();
-            // this.CreateMap<User, UserModel>();
-            // this.CreateMap<User, RegisterModel>();
-            // this.CreateMap<User, AuthModel>();
-            // this.CreateMap<User, User>();
-            // this.CreateMap<EditUserModel, RegisterModel>();
-            // this.CreateMap<EditUserModel, UserModel>();
+
+            this.CreateMap<UserModel, AppClient>();
+            this.CreateMap<AppClient, UserModel>();
+            this.CreateMap<AppClient, RegisterModel>();
+            this.CreateMap<AppClient, AuthModel>();
+            this.CreateMap<AppClient, AppClient>();
+            this.CreateMap<EditUserModel, RegisterModel>();
+            this.CreateMap<EditUserModel, UserModel>();
 
             // this.CreateMap<EditUserModel, User>()
 
