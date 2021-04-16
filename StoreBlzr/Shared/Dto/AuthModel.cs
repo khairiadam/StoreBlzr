@@ -5,6 +5,7 @@ namespace Shared.Dto
 {
     public class AuthModel
     {
+
         public string Message { get; set; }
         public bool IsAuthenticated { get; set; }
         public string UserName { get; set; }
