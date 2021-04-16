@@ -81,7 +81,7 @@ namespace Server.Services.Authentication
             }
 
             //Add new Users To [User] Role
-            await _userManager.AddToRoleAsync(user, "User");
+            await _userManager.AddToRoleAsync(user, "Client");
 
             var jwtSecurityToken = await CreateJwtToken(user);
 
