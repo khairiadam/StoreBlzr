@@ -5,7 +5,6 @@ namespace StoreBlzr.Server.Migrations
 {
     public partial class SeedRoles : Migration
     {
-
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
@@ -27,7 +26,5 @@ namespace StoreBlzr.Server.Migrations
         {
             migrationBuilder.Sql("Delete From [AspNetRoles]");
         }
-
     }
 }
-
