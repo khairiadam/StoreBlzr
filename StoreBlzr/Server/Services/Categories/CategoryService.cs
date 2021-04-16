@@ -42,8 +42,8 @@ namespace Server.Services.Categories
 
         public Task<bool> Put(string categoryId, Category category)
         {
-            //var ctg = _db.Categories.Find(categoryId);
-            //_db.Categories.Update(category);
+            var ctg = _db.Categories.Find(categoryId);
+            _db.Categories.Update(category);
             return null;
         }
 
