@@ -40,11 +40,10 @@ namespace Server.Services.Categories
             return category;
         }
 
-        public Task<bool> Put(string categoryId, Category category)
+        public async Task Put(Category category)
         {
-            //var ctg = _db.Categories.Find(categoryId);
-            //_db.Categories.Update(category);
-            return null;
+            _db.Entry(category).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
         }
 
     }

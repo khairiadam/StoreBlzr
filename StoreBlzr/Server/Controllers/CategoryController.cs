@@ -45,11 +45,23 @@ namespace StoreBlzr.Server.Controllers
             return NoContent();
         }
 
-        [HttpDelete("DeleteCategory")]
+        [HttpDelete("DeleteCategory/{id}")]
         public async Task<IActionResult> DeleteCategory(string id)
         {
              await _category.Delete(id);
              return Ok();
+        }
+
+        [HttpPut("UpdateCategory/{id}")]
+        public async Task<IActionResult> Edit(string id, Category category)
+        {
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
+
+            await _category.Put(category);
+            return Ok(category);
         }
     }
 }
