@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Server.Data;
+using Microsoft.IdentityModel.Tokens;
 using Server.Services.Authentication;
 using Server.Services.Categories;
 using Server.Services.Orders;
@@ -15,6 +16,12 @@ using Server.Services.Products;
 using Server.Services.Users;
 using Shared;
 using System.Linq;
+using System.Text;
+using NToastNotify;
+using StoreBlzr.Server.Data;
+using StoreBlzr.Server.Services.Authentication;
+using StoreBlzr.Server.Services.Users;
+using StoreBlzr.Server.Help;
 
 namespace StoreBlzr.Server
 {
@@ -32,7 +39,11 @@ namespace StoreBlzr.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //!!_ Allow API Access
+
+            services.Configure<Jwt>(Configuration.GetSection("Jwt"));
+
+
+            //!!_ Allow API Access ===>
             services.AddCors(op =>
                        {
                            op.AddPolicy(
@@ -43,8 +54,11 @@ namespace StoreBlzr.Server
                            );
                        });
 
+
             //!! Add Identity with Roles ===>
-            services.AddIdentity<AppClient, IdentityRole>(opt => opt.SignIn.RequireConfirmedAccount = false)
+            services.AddIdentity<AppClient, IdentityRole>(opt =>
+
+                opt.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<StoreDbContext>();
 
 
@@ -54,18 +68,53 @@ namespace StoreBlzr.Server
             Configuration.GetConnectionString("ConnString")));
 
 
-            //!! _ DependencyInjection ===>
+            //!! _ DependencyInjection _ ===>
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICategoryService, CategoryService>();
 
-            //!! _ AddAutoMapper
+
+            //!! _ AddAutoMapper ===>
             services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(c =>
             {
                 c.AllowNullCollections = true;
+            });
+
+
+
+            //!! Add JWT AUTH ===>
+            services.AddAuthentication(options =>
+                     {
+                         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                     })
+                     .AddJwtBearer(o =>
+                        {
+                            o.RequireHttpsMetadata = false;
+                            o.SaveToken = false;
+                            o.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                ValidateIssuerSigningKey = true,
+                                ValidateIssuer = true,
+                                ValidateAudience = true,
+                                ValidateLifetime = true,
+                                ValidIssuer = Configuration["Jwt:Issuer"],
+                                ValidAudience = Configuration["Jwt:Audience"],
+                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                            };
+                        });
+
+
+            //!! Add Notification
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions
+            {
+                ProgressBar = true,
+                TitleClass = "text-dark"
+
             });
 
             services.AddControllersWithViews();
@@ -86,6 +135,8 @@ namespace StoreBlzr.Server
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(AllowSpecificOrigins);
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
