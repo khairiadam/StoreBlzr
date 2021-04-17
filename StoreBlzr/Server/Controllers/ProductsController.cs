@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Models;
 using Server.Services.Products;
 using Shared;
 
@@ -37,10 +38,15 @@ namespace StoreBlzr.Server.Controllers
         }
 
         [HttpGet("GetProduct/{Id}")]
-        public async Task<Product> Getproduct(string id)
+        public async Task<IActionResult> Getproduct(string id)
         {
 
-            return await _productService.Product(id);
+            if (id == null)
+            {
+                BadRequest(" Product Doesn't exist ");
+            }
+
+            return Ok(await _productService.Product(id));
 
 
 
@@ -80,8 +86,10 @@ namespace StoreBlzr.Server.Controllers
         public async Task<IActionResult> Update(string Id, Product product)
         {
 
-            var result = await _productService.UpdateProduct(Id, product);
 
+         
+
+            var result = await _productService.UpdateProduct(Id, product);
             return Ok(result);
 
 

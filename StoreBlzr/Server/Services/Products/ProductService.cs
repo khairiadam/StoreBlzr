@@ -60,6 +60,7 @@ namespace Server.Services.Products
             var GetProduct = await _context.Products.FindAsync(Id);
 
             _context.Products.Update(GetProduct);
+           await _context.SaveChangesAsync();
 
             return ("Product has been updated");
 
