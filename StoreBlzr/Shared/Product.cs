@@ -16,7 +16,7 @@ namespace Shared
         [Required(ErrorMessage = "LongDescription is required")]  public string LongDescription { get; set; }
         [Required(ErrorMessage = "Quantity is required")]  public int Quantity { get; set; }
         [Required(ErrorMessage = "Color is required")]  public string Color { get; set; }
-        [Required(ErrorMessage = "Price is required")]  public Double Price { get; set; }
+        [Required(ErrorMessage = "Price is required")]  public double Price { get; set; }
         public Category ProductCategory { get; set; }
 
         [JsonIgnore]
