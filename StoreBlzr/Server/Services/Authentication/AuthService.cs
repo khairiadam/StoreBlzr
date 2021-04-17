@@ -159,8 +159,7 @@ namespace StoreBlzr.Server.Services.Authentication
                 _jwt.Value.Issuer,
                 _jwt.Value.Audience,
                 claims,
-                expires: DateTime.Now.AddDays(_jwt.Value.DurationInDays
-                ),
+                expires: DateTime.Now.AddDays(_jwt.Value.DurationInDays),
                 signingCredentials: signingCredentials
             );
 

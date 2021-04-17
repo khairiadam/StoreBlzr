@@ -9,8 +9,8 @@ namespace Server.Services.Categories
         Task<List<Category>> GetAll();
         Task<Category> Get(string categoryId);
         Task<Category> Post(Category category);
-        Task<bool> Put(string categoryId, Category category);
-        Task<bool> Delete(string id);
+        Task Put(Category category);
+        Task Delete(string id);
 
     }
 }
