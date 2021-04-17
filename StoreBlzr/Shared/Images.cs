@@ -9,7 +9,7 @@ namespace Shared
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public string Id { get; set; }
-        public string itemId { get; set; }
+        public Product ProductImg { get; set; }
         public byte[] Image { get; set; }
 
     }

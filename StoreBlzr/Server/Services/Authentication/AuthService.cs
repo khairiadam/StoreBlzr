@@ -18,13 +18,14 @@ namespace StoreBlzr.Server.Services.Authentication
 {
     public class AuthService : IAuthService
     {
+        private readonly IOptions<Jwt> _jwt;
+        private readonly IMapper _mapper;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         private readonly UserManager<AppClient> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IMapper _mapper;
-        private readonly IOptions<Jwt> _jwt;
 
-        public AuthService(UserManager<AppClient> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IOptions<Jwt> jwt)
+        public AuthService(UserManager<AppClient> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper,
+            IOptions<Jwt> jwt)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -33,18 +34,16 @@ namespace StoreBlzr.Server.Services.Authentication
         }
 
 
-
-
-        #region  Registration
+        #region Registration
 
         public async Task<AuthModel> RegisterAsync(UserModel model)
         {
             //Check For Duplicate Email and Username
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
-                return new AuthModel() { Message = "Email is already Registered" };
+                return new AuthModel {Message = "Email is already Registered"};
 
             if (await _userManager.FindByNameAsync(model.UserName) is not null)
-                return new AuthModel() { Message = "Username is already Registered" };
+                return new AuthModel {Message = "Username is already Registered"};
 
             //Create new User
 
@@ -71,14 +70,10 @@ namespace StoreBlzr.Server.Services.Authentication
                 var errors = string.Empty;
 
                 //Get Errors Description
-                foreach (var error in result.Errors)
-                {
-                    errors += $"{error.Description} \n ";
-                }
+                foreach (var error in result.Errors) errors += $"{error.Description} \n ";
 
                 //Return Errors
-                return new AuthModel() { Message = errors };
-
+                return new AuthModel {Message = errors};
             }
 
             //Add new Users To [User] Role
@@ -91,7 +86,7 @@ namespace StoreBlzr.Server.Services.Authentication
                 Email = user.Email,
                 UserName = user.UserName,
                 //TODO To Change ==>
-                Roles = new List<string> { "Client" },
+                Roles = new List<string> {"Client"},
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
@@ -99,52 +94,6 @@ namespace StoreBlzr.Server.Services.Authentication
         }
 
         #endregion
-
-
-
-
-        #region  Create a Token JWT
-
-        private async Task<JwtSecurityToken> CreateJwtToken(AppClient user)
-        {
-            var userClaims = await _userManager.GetClaimsAsync(user);
-            var roles = await _userManager.GetRolesAsync(user);
-            var roleClaims = new List<Claim>();
-
-            foreach (var role in roles)
-                roleClaims.Add(new Claim("roles", role));
-
-            var claims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim("uid", user.Id)
-                }
-                .Union(userClaims)
-                .Union(roleClaims);
-
-           var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Value.Key));
-            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-            // var signingCredentials = new SigningCredentials( SecurityAlgorithms.HmacSha256);
-            var jwtSecurityToken = new JwtSecurityToken
-            (
-                issuer: _jwt.Value.Issuer,
-                audience: _jwt.Value.Audience,
-                claims: claims,
-                expires: DateTime.Now.AddDays(_jwt.Value.DurationInDays
-                ),
-
-                signingCredentials: signingCredentials
-            );
-
-            return jwtSecurityToken;
-        }
-
-
-        #endregion
-
-
 
 
         #region Get Token From Login
@@ -178,8 +127,46 @@ namespace StoreBlzr.Server.Services.Authentication
             return authModel;
         }
 
-
         #endregion
 
+
+        #region Create a Token JWT
+
+        private async Task<JwtSecurityToken> CreateJwtToken(AppClient user)
+        {
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
+            var roleClaims = new List<Claim>();
+
+            foreach (var role in roles)
+                roleClaims.Add(new Claim("roles", role));
+
+            var claims = new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim("uid", user.Id)
+                }
+                .Union(userClaims)
+                .Union(roleClaims);
+
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Value.Key));
+            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+            // var signingCredentials = new SigningCredentials( SecurityAlgorithms.HmacSha256);
+            var jwtSecurityToken = new JwtSecurityToken
+            (
+                _jwt.Value.Issuer,
+                _jwt.Value.Audience,
+                claims,
+                expires: DateTime.Now.AddDays(_jwt.Value.DurationInDays
+                ),
+                signingCredentials: signingCredentials
+            );
+
+            return jwtSecurityToken;
+        }
+
+        #endregion
     }
 }

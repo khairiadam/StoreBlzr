@@ -15,7 +15,8 @@ namespace Shared
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        public Images Image { get; set; }
+
+        public byte[] Image { get; set; }
         [JsonIgnore]
         public List<Product> Products { get; set; }
     }

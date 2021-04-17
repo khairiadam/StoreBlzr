@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Server.Data;
 using Shared;
+using StoreBlzr.Server.Data;
 
-namespace Server.Services.Products
+namespace StoreBlzr.Server.Services.Products
 {
     public class ProductService : IProductService
     {
@@ -19,11 +19,7 @@ namespace Server.Services.Products
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _context.Products.ToListAsync();
-
-
         }
-
-
 
 
         public async Task<Product> Product(string Id)
@@ -32,8 +28,6 @@ namespace Server.Services.Products
 
 
             return getProduct;
-
-
         }
 
         public async Task<Product> CreateProduct(Product model)
@@ -41,8 +35,6 @@ namespace Server.Services.Products
             await _context.Products.AddAsync(model);
             await _context.SaveChangesAsync();
             return model;
-
-
         }
 
         public async Task<string> DeleteProduct(string Id)
@@ -52,7 +44,7 @@ namespace Server.Services.Products
             _context.Products.Remove(DeleteProdcut);
             await _context.SaveChangesAsync();
 
-            return ("Product has been Deleted");
+            return "Product has been Deleted";
         }
 
         public async Task<string> UpdateProduct(string Id, Product model)
@@ -60,11 +52,9 @@ namespace Server.Services.Products
             var GetProduct = await _context.Products.FindAsync(Id);
 
             _context.Products.Update(GetProduct);
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-            return ("Product has been updated");
-
+            return "Product has been updated";
         }
-
     }
 }

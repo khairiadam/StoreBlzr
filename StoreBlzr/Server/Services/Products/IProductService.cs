@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Shared;
 
-namespace Server.Services.Products
+namespace StoreBlzr.Server.Services.Products
 {
     public interface IProductService
     {

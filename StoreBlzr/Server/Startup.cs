@@ -12,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Server.Services.Authentication;
 using Server.Services.Categories;
 using Server.Services.Orders;
-using Server.Services.Products;
+
 using Server.Services.Users;
 using Shared;
 using System.Linq;
@@ -22,6 +22,7 @@ using StoreBlzr.Server.Data;
 using StoreBlzr.Server.Services.Authentication;
 using StoreBlzr.Server.Services.Users;
 using StoreBlzr.Server.Help;
+using StoreBlzr.Server.Services.Products;
 
 namespace StoreBlzr.Server
 {
