@@ -9,11 +9,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Server.Help;
+using Server.Services.Authentication;
 using Shared;
 using Shared.Dto;
+using StoreBlzr.Server.Help;
 
-namespace Server.Services.Authentication
+namespace StoreBlzr.Server.Services.Authentication
 {
     public class AuthService : IAuthService
     {
@@ -90,7 +91,7 @@ namespace Server.Services.Authentication
                 Email = user.Email,
                 UserName = user.UserName,
                 //TODO To Change ==>
-                Roles = new List<string> { "User" },
+                Roles = new List<string> { "Client" },
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
@@ -123,9 +124,9 @@ namespace Server.Services.Authentication
                 .Union(userClaims)
                 .Union(roleClaims);
 
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Value.Key));
+           var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Value.Key));
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-
+            // var signingCredentials = new SigningCredentials( SecurityAlgorithms.HmacSha256);
             var jwtSecurityToken = new JwtSecurityToken
             (
                 issuer: _jwt.Value.Issuer,

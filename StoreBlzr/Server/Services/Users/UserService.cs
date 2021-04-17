@@ -1,23 +1,24 @@
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Server.Help;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Server.Services.Users;
 using Shared;
 using Shared.Dto;
+using StoreBlzr.Server.Help;
 
-namespace Server.Services.Users
+namespace StoreBlzr.Server.Services.Users
 {
     public class UserService : IUserService
     {
 
         private readonly UserManager<AppClient> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly AutoMapper.IMapper _mapper;
+        private readonly IMapper _mapper;
         private readonly IOptions<Jwt> _jwt;
         // private readonly AuthService _authService;
 

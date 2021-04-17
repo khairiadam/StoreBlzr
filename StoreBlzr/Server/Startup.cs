@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Server.Data;
 using Server.Services.Authentication;
 using Server.Services.Categories;
 using Server.Services.Orders;
@@ -18,6 +17,11 @@ using Server.Services.Users;
 using Shared;
 using System.Linq;
 using System.Text;
+using NToastNotify;
+using StoreBlzr.Server.Data;
+using StoreBlzr.Server.Services.Authentication;
+using StoreBlzr.Server.Services.Users;
+using StoreBlzr.Server.Help;
 
 namespace StoreBlzr.Server
 {
@@ -35,7 +39,8 @@ namespace StoreBlzr.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //!!_ Allow API Access
+            services.Configure<Jwt>(Configuration.GetSection("Jwt"));
+            //!!_ Allow API Access ===>
             services.AddCors(op =>
                        {
                            op.AddPolicy(
@@ -45,6 +50,7 @@ namespace StoreBlzr.Server
                                .AllowAnyHeader()
                            );
                        });
+
 
             //!! Add Identity with Roles ===>
             services.AddIdentity<AppClient, IdentityRole>(opt =>
@@ -59,7 +65,7 @@ namespace StoreBlzr.Server
             Configuration.GetConnectionString("ConnString")));
 
 
-            //!! _ DependencyInjection ===>
+            //!! _ DependencyInjection _ ===>
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
@@ -67,7 +73,7 @@ namespace StoreBlzr.Server
             services.AddScoped<ICategoryService, CategoryService>();
 
 
-            //!! _ AddAutoMapper
+            //!! _ AddAutoMapper ===>
             services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(c =>
             {
@@ -100,6 +106,13 @@ namespace StoreBlzr.Server
                         });
 
 
+            //!! Add Notification
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions
+            {
+                ProgressBar = true,
+                TitleClass = "text-dark"
+
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
