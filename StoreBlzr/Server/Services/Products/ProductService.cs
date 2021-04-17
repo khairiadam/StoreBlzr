@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Server.Data;
+
 using Shared;
+using StoreBlzr.Server.Data;
 
 namespace Server.Services.Products
 {

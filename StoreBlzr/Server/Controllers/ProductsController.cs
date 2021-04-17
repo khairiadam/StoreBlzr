@@ -66,7 +66,7 @@ namespace StoreBlzr.Server.Controllers
 
             await _productService.CreateProduct(model);
 
-            return Ok(model);
+            return Ok("Product Created successful");
 
 
 
