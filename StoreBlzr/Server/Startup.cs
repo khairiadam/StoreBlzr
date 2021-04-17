@@ -39,7 +39,10 @@ namespace StoreBlzr.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<Jwt>(Configuration.GetSection("Jwt"));
+
+
             //!!_ Allow API Access ===>
             services.AddCors(op =>
                        {
