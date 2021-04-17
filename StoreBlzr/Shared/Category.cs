@@ -12,9 +12,11 @@ namespace Shared
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public string Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
-
+        public byte[] Image { get; set; }
         [JsonIgnore]
         public List<Product> Products { get; set; }
     }

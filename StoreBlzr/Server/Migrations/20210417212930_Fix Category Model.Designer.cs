@@ -10,8 +10,8 @@ using StoreBlzr.Server.Data;
 namespace StoreBlzr.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20210416105443_Intial Migration")]
-    partial class IntialMigration
+    [Migration("20210417212930_Fix Category Model")]
+    partial class FixCategoryModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -363,17 +363,17 @@ namespace StoreBlzr.Server.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("Categories");
                 });
@@ -387,12 +387,12 @@ namespace StoreBlzr.Server.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ProductId")
+                    b.Property<string>("ProductImgId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductImgId");
 
                     b.ToTable("Images");
                 });
@@ -504,22 +504,13 @@ namespace StoreBlzr.Server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Shared.Category", b =>
-                {
-                    b.HasOne("Shared.Images", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
-
-                    b.Navigation("Image");
-                });
-
             modelBuilder.Entity("Shared.Images", b =>
                 {
-                    b.HasOne("Shared.Product", "Product")
+                    b.HasOne("Shared.Product", "ProductImg")
                         .WithMany("ProductImages")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductImgId");
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductImg");
                 });
 
             modelBuilder.Entity("Shared.Order", b =>

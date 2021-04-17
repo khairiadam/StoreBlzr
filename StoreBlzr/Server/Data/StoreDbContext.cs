@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Shared;
 
-namespace Server.Data
+namespace StoreBlzr.Server.Data
 {
     public class StoreDbContext : ApiAuthorizationDbContext<AppClient>
     {
