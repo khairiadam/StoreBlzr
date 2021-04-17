@@ -131,9 +131,7 @@ namespace Server.Services.Authentication
                 issuer: _jwt.Value.Issuer,
                 audience: _jwt.Value.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddDays(_jwt.Value.DurationInDays
-                ),
-
+                expires: DateTime.Now.AddDays(_jwt.Value.DurationInDays),
                 signingCredentials: signingCredentials
             );
 
