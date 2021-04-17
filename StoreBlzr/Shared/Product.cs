@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Shared
 {
@@ -17,6 +18,8 @@ namespace Shared
         public string Color { get; set; }
         public Double Price { get; set; }
         public Category ProductCategory { get; set; }
+
+        [JsonIgnore]
         public List<Images> ProductImages { get; set; }
 
     }

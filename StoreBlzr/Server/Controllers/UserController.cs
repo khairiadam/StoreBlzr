@@ -4,7 +4,7 @@ using Server.Services.Authentication;
 using Server.Services.Users;
 using Shared.Dto;
 
-namespace Server.Controllers
+namespace StoreBlzr.Server.Controllers
 {
     // [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]

@@ -1,4 +1,4 @@
-namespace Server.Help
+namespace StoreBlzr.Server.Help
 {
   public class Jwt
     {

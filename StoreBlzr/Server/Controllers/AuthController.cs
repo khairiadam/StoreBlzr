@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Services.Authentication;
 using Shared.Dto;
 
-namespace Server.Controllers
+namespace StoreBlzr.Server.Controllers
 {
 
     [Route("api/[controller]")]
