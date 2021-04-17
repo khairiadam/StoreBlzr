@@ -26,11 +26,11 @@ namespace StoreBlzr.Server.Controllers
 
 
         [HttpGet("products")]
-        public async Task<IEnumerable<Product>> Get()
+        public async Task<IActionResult> Get()
         {
 
 
-            return await _productService.GetProducts();
+            return Ok(await _productService.GetProducts());
 
 
 
@@ -41,10 +41,12 @@ namespace StoreBlzr.Server.Controllers
         public async Task<IActionResult> Getproduct(string id)
         {
 
-            if (id == null)
+           
+            if (!ModelState.IsValid)
             {
-                BadRequest(" Product Doesn't exist ");
+                return BadRequest("Something went Wrong");
             }
+
 
             return Ok(await _productService.Product(id));
 
@@ -73,8 +75,17 @@ namespace StoreBlzr.Server.Controllers
         [HttpDelete("Delete/{Id}")]
         public async Task<IActionResult> DeleteProduct(string Id)
         {
+
+
+       
+
             var result = await _productService.DeleteProduct(Id);
-            
+
+            if (result == null)
+            {
+                return BadRequest("Null Object");
+            }
+
 
             return Ok(result);
 
