@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Shared
+namespace StoreBlzr.Shared
 {
     public class Category
     {
@@ -17,6 +15,7 @@ namespace Shared
         [Required]
         public string Description { get; set; }
         public byte[] Image { get; set; }
+
         [JsonIgnore]
         public List<Product> Products { get; set; }
     }

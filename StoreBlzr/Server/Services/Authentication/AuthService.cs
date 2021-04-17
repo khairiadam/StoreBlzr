@@ -9,10 +9,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Server.Services.Authentication;
-using Shared;
-using Shared.Dto;
 using StoreBlzr.Server.Help;
+using StoreBlzr.Shared;
+using StoreBlzr.Shared.Dto;
 
 namespace StoreBlzr.Server.Services.Authentication
 {

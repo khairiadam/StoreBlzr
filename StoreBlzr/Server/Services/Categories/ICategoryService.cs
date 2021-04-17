@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Shared;
+using StoreBlzr.Shared;
 
-namespace Server.Services.Categories
+namespace StoreBlzr.Server.Services.Categories
 {
     public interface ICategoryService
     {

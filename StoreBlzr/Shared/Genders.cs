@@ -1,4 +1,4 @@
-namespace Shared
+namespace StoreBlzr.Shared
 {
     public enum Genders
     {

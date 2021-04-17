@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Shared.Dto;
+using StoreBlzr.Shared.Dto;
 
-namespace Server.Services.Users
+namespace StoreBlzr.Server.Services.Users
 {
     public interface IUserService
     {

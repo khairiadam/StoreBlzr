@@ -1,9 +1,9 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
-using Shared;
-using Shared.Dto;
+using StoreBlzr.Shared;
+using StoreBlzr.Shared.Dto;
 
-namespace Server.Help
+namespace StoreBlzr.Server.Help
 {
     public class MapperProfile : Profile
     {

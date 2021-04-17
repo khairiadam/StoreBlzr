@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Shared.Dto
+namespace StoreBlzr.Shared.Dto
 {
     public class EditUserModel
     {

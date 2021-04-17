@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Server.Services.Categories;
-using Shared;
+using StoreBlzr.Server.Services.Categories;
+using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server.Controllers
 {

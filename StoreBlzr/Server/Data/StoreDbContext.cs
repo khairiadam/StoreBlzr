@@ -2,7 +2,7 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Shared;
+using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server.Data
 {

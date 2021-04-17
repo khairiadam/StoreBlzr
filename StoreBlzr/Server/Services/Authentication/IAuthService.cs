@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Shared.Dto;
+using StoreBlzr.Shared.Dto;
 
-namespace Server.Services.Authentication
+namespace StoreBlzr.Server.Services.Authentication
 {
     public interface IAuthService
     {

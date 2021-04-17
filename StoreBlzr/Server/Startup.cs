@@ -9,12 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Server.Services.Authentication;
-using Server.Services.Categories;
-using Server.Services.Orders;
-
-using Server.Services.Users;
-using Shared;
 using System.Linq;
 using System.Text;
 using NToastNotify;
@@ -22,7 +16,10 @@ using StoreBlzr.Server.Data;
 using StoreBlzr.Server.Services.Authentication;
 using StoreBlzr.Server.Services.Users;
 using StoreBlzr.Server.Help;
+using StoreBlzr.Server.Services.Categories;
+using StoreBlzr.Server.Services.Orders;
 using StoreBlzr.Server.Services.Products;
+using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server
 {

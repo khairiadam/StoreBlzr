@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Shared;
+
+using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server.Services.Products
 {
