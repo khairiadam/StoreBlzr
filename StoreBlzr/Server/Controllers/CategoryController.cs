@@ -26,7 +26,7 @@ namespace StoreBlzr.Server.Controllers
            return await _category.GetAll();
         }
 
-        [HttpGet("GetCategory")]
+        [HttpGet("GetCategory/{id}")]
         public async Task<Category> GetCategory(string id)
         {
             var cat = await _category.Get(id);
@@ -42,14 +42,14 @@ namespace StoreBlzr.Server.Controllers
             }
 
             await _category.Post(category);
-            return NoContent();
+            return Ok(category);
         }
 
         [HttpDelete("DeleteCategory/{id}")]
         public async Task<IActionResult> DeleteCategory(string id)
         {
              await _category.Delete(id);
-             return Ok();
+             return NoContent();
         }
 
         [HttpPut("UpdateCategory/{id}")]
