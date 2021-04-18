@@ -11,6 +11,5 @@ namespace StoreBlzr.Server.Services.Categories
         Task<Category> Post(Category category);
         Task Put(Category category);
         Task Delete(string id);
-
     }
 }
