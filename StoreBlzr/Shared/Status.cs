@@ -1,10 +1,10 @@
-namespace Shared
+namespace StoreBlzr.Shared
 {
     public enum Status
     {
         Pending,
         Paid,
-        Delivred
+        Delivered
     }
 
 }

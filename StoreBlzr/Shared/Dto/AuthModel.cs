@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Shared.Dto
+namespace StoreBlzr.Shared.Dto
 {
     public class AuthModel
     {

@@ -6,10 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Server.Services.Users;
-using Shared;
-using Shared.Dto;
 using StoreBlzr.Server.Help;
+using StoreBlzr.Shared;
+using StoreBlzr.Shared.Dto;
 
 namespace StoreBlzr.Server.Services.Users
 {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 
-namespace Shared
+namespace StoreBlzr.Shared
 {
     public class AppClient : IdentityUser
     {

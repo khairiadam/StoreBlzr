@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Shared.Dto
+namespace StoreBlzr.Shared.Dto
 {
     public class UserModel
     {

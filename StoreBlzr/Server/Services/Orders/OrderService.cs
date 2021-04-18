@@ -1,4 +1,4 @@
-namespace Server.Services.Orders
+namespace StoreBlzr.Server.Services.Orders
 {
     public class OrderService :IOrderService
     {

@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Server.Services.Authentication;
-using Server.Services.Users;
-using Shared.Dto;
+using StoreBlzr.Server.Services.Authentication;
+using StoreBlzr.Server.Services.Users;
+using StoreBlzr.Shared.Dto;
 
 namespace StoreBlzr.Server.Controllers
 {
