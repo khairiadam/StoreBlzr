@@ -22,5 +22,25 @@ namespace StoreBlzr.Server.Services.Orders
             _db.Categories.Remove(supOrder);
             await _db.SaveChangesAsync();
         }
+
+        public Task<Order> Get(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Order>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Order> Post(Order type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Put(Order type)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
