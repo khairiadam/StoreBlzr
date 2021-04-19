@@ -18,8 +18,8 @@ namespace StoreBlzr.Server.Services.Orders
 
         public async Task Delete(string id)
         {
-            var supOrder = await _db.Categories.FindAsync(id);
-            _db.Categories.Remove(supOrder);
+            var supOrder = await _db.Orders.FindAsync(id);
+            _db.Orders.Remove(supOrder);
             await _db.SaveChangesAsync();
         }
 
