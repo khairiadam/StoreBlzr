@@ -10,34 +10,17 @@ namespace StoreBlzr.Server.Services.Orders
     public class OrderService : ITypeCrud<Order>
     {
 
-        public Task<List<Type>> Get()
+        private readonly StoreDbContext _db;
+        public OrderService(StoreDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public Task<List<Order>> GetAll()
+        public async Task Delete(string id)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Order> Get(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Order> Delete(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Order> Post(Order Order)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Order> Put(Order Order)
-        {
-            throw new System.NotImplementedException();
+            var supOrder = await _db.Categories.FindAsync(id);
+            _db.Categories.Remove(supOrder);
+            await _db.SaveChangesAsync();
         }
     }
 }
