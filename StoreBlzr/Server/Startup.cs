@@ -76,6 +76,7 @@ namespace StoreBlzr.Server
             services.AddScoped<ITypeCrud<Category>, CategoryService>();
 
 
+
             //!! _ AddAutoMapper ===>
             services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(c =>
