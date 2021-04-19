@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 
+appsettings.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -364,3 +365,4 @@ FodyWeavers.xsd
 
 # Ignore appsettings.json file
 StoreBlzr/Server/appsettings.json
+

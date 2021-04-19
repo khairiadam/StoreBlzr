@@ -20,6 +20,7 @@ using StoreBlzr.Server.Services.Categories;
 using StoreBlzr.Server.Services.Orders;
 using StoreBlzr.Server.Services.Products;
 using StoreBlzr.Shared;
+using Server.Services;
 
 namespace StoreBlzr.Server
 {
@@ -71,7 +72,8 @@ namespace StoreBlzr.Server
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<ICategoryService, CategoryService>();
+            // services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ITypeCrud<Category>, CategoryService>();
 
 
             //!! _ AddAutoMapper ===>
