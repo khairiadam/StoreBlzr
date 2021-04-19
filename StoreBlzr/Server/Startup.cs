@@ -12,16 +12,17 @@ using Microsoft.IdentityModel.Tokens;
 using Server.Services.Authentication;
 using Server.Services.Categories;
 using Server.Services.Orders;
-using Server.Services.Products;
 using Server.Services.Users;
 using Shared;
 using System.Linq;
 using System.Text;
 using NToastNotify;
+using Server.Services;
 using StoreBlzr.Server.Data;
 using StoreBlzr.Server.Services.Authentication;
 using StoreBlzr.Server.Services.Users;
 using StoreBlzr.Server.Help;
+using StoreBlzr.Server.Services.Products;
 
 namespace StoreBlzr.Server
 {
@@ -71,7 +72,7 @@ namespace StoreBlzr.Server
             //!! _ DependencyInjection _ ===>
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ITypeCrud<Product>, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICategoryService, CategoryService>();
 

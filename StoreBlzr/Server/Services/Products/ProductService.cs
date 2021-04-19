@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Services;
+using Shared;
 using StoreBlzr.Server.Data;
 using StoreBlzr.Shared;
 
