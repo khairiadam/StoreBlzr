@@ -23,7 +23,7 @@ namespace StoreBlzr.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _userService.GetUsersAsync();
+            var users = await _userService.GetAll();
 
             if (users == null) return BadRequest(ModelState);
 
@@ -36,7 +36,7 @@ namespace StoreBlzr.Server.Controllers
         {
             // if (ModelState.IsValid) return BadRequest(ModelState);
 
-            var result = await _userService.GetUserAsync(id);
+            var result = await _userService.Get(id);
 
             if (result is null) return BadRequest(result.Message);
 
@@ -66,9 +66,10 @@ namespace StoreBlzr.Server.Controllers
         [HttpPut("Edit")]
         public async Task<IActionResult> EditUser(string userId, EditUserModel user)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid || userId != user.Id) return BadRequest(ModelState);
 
-            var result = await _userService.PutUserAsync(userId, user);
+
+            var result = await _userService.Put(user);
 
             if (!string.IsNullOrEmpty(result.Message)) return BadRequest(result.Message);
             return Ok(result);
@@ -79,7 +80,7 @@ namespace StoreBlzr.Server.Controllers
         public async Task<IActionResult> DeleteUser(string id)
         {
 
-            if (!await _userService.DeleteUserAsync(id)) return BadRequest(new { Message = "Couldn't Delete User !" });
+            if (!await _userService.Delete(id)) return BadRequest(new { Message = "Couldn't Delete User !" });
 
             return Ok(new { Message = "User deleted successfully." });
 

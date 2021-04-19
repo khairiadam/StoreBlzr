@@ -33,7 +33,30 @@ namespace StoreBlzr.Server.Services.Users
 
 
 
-        public async Task<UserModel> GetUserAsync(string userId)
+
+
+
+        public async Task<List<UserModel>> GetAll()
+        {
+            var users = await _userManager.Users.ToListAsync();
+
+            if (users.Count <= 0) return new List<UserModel>();
+
+            // var usersModel = _mapper.Map<List<UserModel>>(users);
+            List<UserModel> list = new List<UserModel>();
+            users.ForEach(u =>
+           {
+               var userModell = _mapper.Map<UserModel>(u);
+               list.Add(userModell);
+           });
+
+            return list;
+
+        }
+
+
+
+        public async Task<UserModel> Get(string userId)
         {
             if (userId is null)
                 return new UserModel { Message = "Invalid User Id" };
@@ -55,48 +78,28 @@ namespace StoreBlzr.Server.Services.Users
 
 
 
-        public async Task<List<UserModel>> GetUsersAsync()
-        {
-            var users = await _userManager.Users.ToListAsync();
 
-            if (users.Count <= 0) return new List<UserModel>();
-
-            // var usersModel = _mapper.Map<List<UserModel>>(users);
-            List<UserModel> list = new List<UserModel>();
-            users.ForEach(u =>
-           {
-               var userModell = _mapper.Map<UserModel>(u);
-               list.Add(userModell);
-           });
-
-            return list;
-
-        }
-
-
-
-
-        public async Task<UserModel> PutUserAsync(string userId, EditUserModel updatedUser)
+        public async Task<UserModel> Put(EditUserModel updatedUser)
         {
             var UserModel = new UserModel();
             UserModel = _mapper.Map<UserModel>(updatedUser);
 
-            if (userId == null)
+            if (updatedUser == null)
             {
-                UserModel.Message = "Invalid Id";
+                updatedUser.Message = "Invalid user";
                 return UserModel;
             }
 
-            var oldUser = await _userManager.FindByIdAsync(userId);
+            var oldUser = await _userManager.FindByIdAsync(updatedUser.Id);
 
             if (oldUser is null)
             {
-                UserModel.Message = "Invalid User";
+                updatedUser.Message = "Invalid User";
                 return UserModel;
             }
             if (string.IsNullOrEmpty(updatedUser.Password))
             {
-                UserModel.Message = "Please enter your password";
+                updatedUser.Message = "Please enter your password";
                 return UserModel;
             }
             else
@@ -105,19 +108,19 @@ namespace StoreBlzr.Server.Services.Users
                 {
                     if (updatedUser.NewPassword != updatedUser.ConfirmNewPassword)
                     {
-                        UserModel.Message = "New Passwod and Confirm New Password are not same";
+                        updatedUser.Message = "New Passwod and Confirm New Password are not same";
                         return UserModel;
                     }
                     var res = await _userManager.ChangePasswordAsync(oldUser, updatedUser.Password, updatedUser.NewPassword);
                     if (!res.Succeeded)
                     {
-                        UserModel.Password = "";
-                        UserModel.Message = "Couldn't change your password. Please try again !";
+                        updatedUser.Password = "";
+                        updatedUser.Message = "Couldn't change your password. Please try again !";
                         return UserModel;
                     }
                 }
 
-                UserModel.Password = "";
+                updatedUser.Password = "";
 
                 // oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
                 // oldUser.FirstName = string.IsNullOrEmpty(updatedUser.FirstName) ? oldUser.FirstName : updatedUser.FirstName;
@@ -152,7 +155,7 @@ namespace StoreBlzr.Server.Services.Users
 
 
 
-        public async Task<bool> DeleteUserAsync(string userId)
+        public async Task<bool> Delete(string userId)
         {
             if (string.IsNullOrEmpty(userId)) return false;
 
