@@ -42,9 +42,9 @@ namespace StoreBlzr.Server.Services.Products
 
         public async Task Delete(string Id)
         {
-            var DeleteProdcut = await _context.Products.FindAsync(Id);
+            var DeleteProduct = await _context.Products.FindAsync(Id);
 
-            _context.Products.Remove(DeleteProdcut);
+            _context.Products.Remove(DeleteProduct);
             await _context.SaveChangesAsync();
 
           

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
+using Server.Services;
 using Shared;
 using StoreBlzr.Server.Services.Products;
 
@@ -15,14 +16,12 @@ namespace StoreBlzr.Server.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly ITypeCrud<Product> _iTypeCrud;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(ITypeCrud<Product> iTypeCrud)
         {
-            _productService = productService;
+            _iTypeCrud = iTypeCrud;
         }
-
-
 
 
         [HttpGet("products")]
@@ -30,7 +29,7 @@ namespace StoreBlzr.Server.Controllers
         {
 
 
-            return Ok(await _productService.GetProducts());
+            return Ok(await _iTypeCrud.GetAll());
 
 
 
@@ -40,7 +39,7 @@ namespace StoreBlzr.Server.Controllers
         [HttpGet("GetProduct/{Id}")]
         public async Task<IActionResult> Getproduct(string id)
         {
-          var result =  await _productService.Product(id);
+          var result =  await _iTypeCrud.Get(id);
 
             if (result == null)
             {
@@ -64,7 +63,7 @@ namespace StoreBlzr.Server.Controllers
                 return BadRequest();
             }
 
-            await _productService.CreateProduct(model);
+            await _iTypeCrud.Post(model);
 
             return Ok("Product Created successful");
 
@@ -76,18 +75,24 @@ namespace StoreBlzr.Server.Controllers
         public async Task<IActionResult> DeleteProduct(string Id)
         {
 
-
-       
-
-            var result = await _productService.DeleteProduct(Id);
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
+                  var result =  _iTypeCrud.Delete(Id);
             }
 
 
-            return Ok(result);
+            else
+            {
+                return BadRequest();
+
+            }
+
+
+
+            return NoContent();
+
+
+
 
 
         }
@@ -98,7 +103,7 @@ namespace StoreBlzr.Server.Controllers
         {
 
             
-            var result = await _productService.UpdateProduct(Id, product);
+            var result =  _iTypeCrud.Put(product);
 
             if (result == null)
             {
