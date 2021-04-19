@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
-using Shared;
+using Server.Services;
 using StoreBlzr.Server.Data;
+using StoreBlzr.Shared;
 
-namespace Server.Services.Products
+
+namespace StoreBlzr.Server.Services.Products
 {
-    public class ProductService : IProductService
+    public class ProductService : ITypeCrud<Product>
     {
         private readonly StoreDbContext _context;
 
@@ -17,55 +18,45 @@ namespace Server.Services.Products
         }
 
 
-        public async Task<IEnumerable<Product>> GetProducts()
+        public async Task<List<Product>> GetAll()
         {
             return await _context.Products.ToListAsync();
-
-
         }
 
 
-
-
-        public async Task<Product> Product(string Id)
+        public async Task<Product> Get(string Id)
         {
             var getProduct = await _context.Products.FindAsync(Id);
 
 
             return getProduct;
-
-
         }
 
-        public async Task<Product> CreateProduct(Product model)
+        public async Task<Product> Post(Product model)
         {
             await _context.Products.AddAsync(model);
             await _context.SaveChangesAsync();
             return model;
-
-
         }
 
-        public async Task<string> DeleteProduct(string Id)
+        public async Task Delete(string Id)
         {
             var DeleteProdcut = await _context.Products.FindAsync(Id);
 
             _context.Products.Remove(DeleteProdcut);
             await _context.SaveChangesAsync();
 
-            return ("Product has been Deleted");
+          
         }
 
-        public async Task<string> UpdateProduct(string Id, Product model)
+        public async Task Put(Product model)
         {
-            var GetProduct = await _context.Products.FindAsync(Id);
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            _context.Products.Update(GetProduct);
-           await _context.SaveChangesAsync();
-
-            return ("Product has been updated");
-
+            
         }
 
+        
     }
 }

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Shared;
 
-namespace Server.Services.Products
+using StoreBlzr.Shared;
+
+namespace StoreBlzr.Server.Services.Products
 {
     public interface IProductService
     {
