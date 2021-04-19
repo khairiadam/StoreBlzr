@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Server.Services;
+using StoreBlzr.Server.Data;
 using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server.Services.Orders
 {
-    public class OrderService : IOrderService
+    public class OrderService : ITypeCrud<Order>
     {
 
         public Task<List<Type>> Get()
