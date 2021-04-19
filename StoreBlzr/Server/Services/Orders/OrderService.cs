@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Server.Services;
 using StoreBlzr.Server.Data;
 using StoreBlzr.Shared;
@@ -23,24 +24,31 @@ namespace StoreBlzr.Server.Services.Orders
             await _db.SaveChangesAsync();
         }
 
-        public Task<Order> Get(string id)
+        public async Task<Order> Get(string id)
         {
-            throw new NotImplementedException();
+            var find = await _db.Orders.FindAsync(id);
+            return find;
+        } 
+
+        public async Task<List<Order>> GetAll()
+        {
+            return await _db.Orders.ToListAsync();
+
         }
 
-        public Task<List<Order>> GetAll()
+        public async Task<Order> Post(Order type)
         {
-            throw new NotImplementedException();
+            _db.Orders.Add(type);
+            await _db.SaveChangesAsync();
+            return type;
+
         }
 
-        public Task<Order> Post(Order type)
+        public async Task Put(Order type)
         {
-            throw new NotImplementedException();
-        }
+            _db.Entry(type).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
 
-        public Task Put(Order type)
-        {
-            throw new NotImplementedException();
         }
     }
 }
