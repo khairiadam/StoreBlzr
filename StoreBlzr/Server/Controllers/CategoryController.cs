@@ -52,7 +52,7 @@ namespace StoreBlzr.Server.Controllers
              return Ok();
         }
 
-        [HttpPut("UpdateCategory/{id}")]
+        [HttpPut("UpdateCategory")]
         public async Task<IActionResult> Edit(string id, Category category)
         {
             if (id != category.Id)
