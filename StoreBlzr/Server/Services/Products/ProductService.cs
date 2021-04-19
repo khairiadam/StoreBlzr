@@ -36,6 +36,7 @@ namespace StoreBlzr.Server.Services.Products
         public async Task<Product> Post(Product model)
         {
             await _context.Products.AddAsync(model);
+            
             await _context.SaveChangesAsync();
             return model;
         }

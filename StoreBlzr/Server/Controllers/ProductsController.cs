@@ -54,9 +54,9 @@ namespace StoreBlzr.Server.Controllers
         }
 
 
-        [HttpPost("newProduct")]
+        [HttpPost("Post")]
 
-        public async Task<IActionResult> CreateProduct([FromBody] Product model)
+        public async Task<IActionResult> CreateProduct(Product model)
         {
             if (!ModelState.IsValid)
             {
@@ -64,6 +64,7 @@ namespace StoreBlzr.Server.Controllers
             }
 
             await _iTypeCrud.Post(model);
+          
 
             return Ok("Product Created successful");
 
@@ -96,6 +97,10 @@ namespace StoreBlzr.Server.Controllers
 
 
         }
+
+
+
+
 
 
         [HttpPut("update/{Id}")]
