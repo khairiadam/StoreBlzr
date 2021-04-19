@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Server.Services;
 using StoreBlzr.Server.Data;
 using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server.Services.Categories
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : ITypeCrud<Category>
     {
         private readonly StoreDbContext _db;
         public CategoryService(StoreDbContext db)
@@ -21,9 +22,9 @@ namespace StoreBlzr.Server.Services.Categories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<Category> Get(string categoryId)
+        public async Task<Category> Get(string id)
         {
-            var find = await _db.Categories.FindAsync(categoryId);
+            var find = await _db.Categories.FindAsync(id);
             return find;
         }
 

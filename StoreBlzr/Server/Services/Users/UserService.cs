@@ -119,16 +119,16 @@ namespace StoreBlzr.Server.Services.Users
 
                 UserModel.Password = "";
 
-                oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
-                oldUser.FirstName = string.IsNullOrEmpty(updatedUser.FirstName) ? oldUser.FirstName : updatedUser.FirstName;
-                oldUser.LastName = string.IsNullOrEmpty(updatedUser.LastName) ? oldUser.LastName : updatedUser.LastName;
-                oldUser.UserName = string.IsNullOrEmpty(updatedUser.UserName) ? oldUser.UserName : updatedUser.UserName;
-                oldUser.PhoneNumber = string.IsNullOrEmpty(updatedUser.PhoneNumber) ? oldUser.PhoneNumber : updatedUser.PhoneNumber;
+                // oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
+                // oldUser.FirstName = string.IsNullOrEmpty(updatedUser.FirstName) ? oldUser.FirstName : updatedUser.FirstName;
+                // oldUser.LastName = string.IsNullOrEmpty(updatedUser.LastName) ? oldUser.LastName : updatedUser.LastName;
+                // oldUser.UserName = string.IsNullOrEmpty(updatedUser.UserName) ? oldUser.UserName : updatedUser.UserName;
+                // oldUser.PhoneNumber = string.IsNullOrEmpty(updatedUser.PhoneNumber) ? oldUser.PhoneNumber : updatedUser.PhoneNumber;
 
-                // _db.Entry(oldUser).State = EntityState.Modified;
-                //oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
-                // var oldUser1 = _mapper.Map<ApplicationUser>(updatedUser);
-                // var uu = _mapper.Map<ApplicationUser>(oldUser1);
+                // // _db.Entry(oldUser).State = EntityState.Modified;
+                // //oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
+                // // var oldUser1 = _mapper.Map<ApplicationUser>(updatedUser);
+                // // var uu = _mapper.Map<ApplicationUser>(oldUser1);
 
 
 

@@ -16,9 +16,8 @@ namespace StoreBlzr.Shared
         public string LongDescription { get; set; }
         public int Quantity { get; set; }
         public string Color { get; set; }
-        public Double Price { get; set; }
+        public double Price { get; set; }
         public Category ProductCategory { get; set; }
-
         [JsonIgnore]
         public List<Images> ProductImages { get; set; }
 

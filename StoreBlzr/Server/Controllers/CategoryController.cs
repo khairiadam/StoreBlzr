@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using StoreBlzr.Server.Services.Categories;
 using StoreBlzr.Shared;
+using Server.Services;
 
 namespace StoreBlzr.Server.Controllers
 {
@@ -13,9 +14,9 @@ namespace StoreBlzr.Server.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryService _category;
+        private readonly ITypeCrud<Category> _category;
 
-        public CategoryController(ICategoryService category)
+        public CategoryController(ITypeCrud<Category> category)
         {
             _category = category;
         }
@@ -52,7 +53,7 @@ namespace StoreBlzr.Server.Controllers
              return NoContent();
         }
 
-        [HttpPut("UpdateCategory/{id}")]
+        [HttpPut("UpdateCategory")]
         public async Task<IActionResult> Edit(string id, Category category)
         {
             if (id != category.Id)
