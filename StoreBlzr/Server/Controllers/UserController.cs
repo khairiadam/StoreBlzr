@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StoreBlzr.Server.Services.Authentication;
@@ -49,7 +50,8 @@ namespace StoreBlzr.Server.Controllers
         public async Task<IActionResult> AddUser([FromBody] UserModel model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-
+            model.Id = Guid.NewGuid().ToString();
+            // var usermodel =
             //Register User and Get the Result
             var result = await _authService.RegisterAsync(model);
 
