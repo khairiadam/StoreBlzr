@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+
 using StoreBlzr.Server.Help;
 using StoreBlzr.Shared;
 using StoreBlzr.Shared.Dto;
@@ -30,8 +31,6 @@ namespace StoreBlzr.Server.Services.Users
             _mapper = mapper;
             _jwt = jwt;
         }
-
-
 
 
 
@@ -84,9 +83,9 @@ namespace StoreBlzr.Server.Services.Users
             var UserModel = new UserModel();
             UserModel = _mapper.Map<UserModel>(updatedUser);
 
-            if (updatedUser == null)
+            if (string.IsNullOrEmpty(updatedUser.Id))
             {
-                updatedUser.Message = "Invalid user";
+                UserModel.Message = "Invalid user";
                 return UserModel;
             }
 
@@ -94,12 +93,12 @@ namespace StoreBlzr.Server.Services.Users
 
             if (oldUser is null)
             {
-                updatedUser.Message = "Invalid User";
+                UserModel.Message = "Invalid User";
                 return UserModel;
             }
             if (string.IsNullOrEmpty(updatedUser.Password))
             {
-                updatedUser.Message = "Please enter your password";
+                UserModel.Message = "Please enter your password";
                 return UserModel;
             }
             else
@@ -108,30 +107,38 @@ namespace StoreBlzr.Server.Services.Users
                 {
                     if (updatedUser.NewPassword != updatedUser.ConfirmNewPassword)
                     {
-                        updatedUser.Message = "New Passwod and Confirm New Password are not same";
+                        UserModel.Message = "New Passwod and Confirm New Password are not same";
                         return UserModel;
                     }
                     var res = await _userManager.ChangePasswordAsync(oldUser, updatedUser.Password, updatedUser.NewPassword);
                     if (!res.Succeeded)
                     {
-                        updatedUser.Password = "";
-                        updatedUser.Message = "Couldn't change your password. Please try again !";
+                        UserModel.Password = "";
+                        UserModel.Message = "Couldn't change your password. Please try again !";
                         return UserModel;
                     }
                 }
 
-                updatedUser.Password = "";
+                UserModel.Password = "";
 
-                // oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
-                // oldUser.FirstName = string.IsNullOrEmpty(updatedUser.FirstName) ? oldUser.FirstName : updatedUser.FirstName;
-                // oldUser.LastName = string.IsNullOrEmpty(updatedUser.LastName) ? oldUser.LastName : updatedUser.LastName;
-                // oldUser.UserName = string.IsNullOrEmpty(updatedUser.UserName) ? oldUser.UserName : updatedUser.UserName;
-                // oldUser.PhoneNumber = string.IsNullOrEmpty(updatedUser.PhoneNumber) ? oldUser.PhoneNumber : updatedUser.PhoneNumber;
+                oldUser.Email = Ex.Check(oldUser.Email, updatedUser.Email);
+                oldUser.FirstName = Ex.Check(oldUser.FirstName, updatedUser.FirstName);
+                oldUser.LastName = Ex.Check(oldUser.LastName, updatedUser.LastName);
+                oldUser.UserName = Ex.Check(oldUser.UserName, updatedUser.UserName);
+                oldUser.PhoneNumber = Ex.Check(oldUser.PhoneNumber, updatedUser.PhoneNumber);
+                oldUser.Gender = Ex.Check(oldUser.Gender, updatedUser.Gender);
+                oldUser.Address = Ex.Check(oldUser.Address, updatedUser.Address);
+                oldUser.Country = Ex.Check(oldUser.Country, updatedUser.Country);
+                oldUser.State = Ex.Check(oldUser.State, updatedUser.State);
+                oldUser.City = Ex.Check(oldUser.City, updatedUser.City);
+                oldUser.ZipCode = Ex.Check(oldUser.ZipCode, updatedUser.ZipCode);
 
-                // // _db.Entry(oldUser).State = EntityState.Modified;
-                // //oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
-                // // var oldUser1 = _mapper.Map<ApplicationUser>(updatedUser);
-                // // var uu = _mapper.Map<ApplicationUser>(oldUser1);
+
+
+                // _db.Entry(oldUser).State = EntityState.Modified;
+                //oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
+                // var oldUser1 = _mapper.Map<ApplicationUser>(updatedUser);
+                // var uu = _mapper.Map<ApplicationUser>(oldUser1);
 
 
 
@@ -166,8 +173,6 @@ namespace StoreBlzr.Server.Services.Users
             if (!result.Succeeded) return false;
             return true;
         }
-
-
 
 
 
