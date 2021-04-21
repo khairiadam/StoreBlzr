@@ -37,7 +37,7 @@ namespace StoreBlzr.Server.Controllers
 
             var clt = await _order.Get(id);
 
-            if(clt is null) return NotFound("Order was not Found !");
+            if (clt is null) return NotFound("Order was not Found !");
 
             return Ok(clt);
         }
@@ -48,11 +48,10 @@ namespace StoreBlzr.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("There is an error");
+                return BadRequest("Couldn't add the Order");
             }
 
-            await _order.Post(order);
-            return Ok(order);
+            return Ok(await _order.Post(order));
 
         }
 
@@ -63,7 +62,7 @@ namespace StoreBlzr.Server.Controllers
         {
             if (string.IsNullOrEmpty(id)) return BadRequest();
 
-           await _order.Delete(id);
+            await _order.Delete(id);
 
             return Ok();
 
