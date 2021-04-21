@@ -25,7 +25,8 @@
     <ProjectReference Include="..\Shared\StoreBlzr.Shared.csproj" />
   </ItemGroup>
 
-  <!-- <ItemGroup>
+  <ItemGroup>
     <Watch Include="..\Client\**\*.razor" />
-  </ItemGroup> -->
+  </ItemGroup>
+
 </Project>

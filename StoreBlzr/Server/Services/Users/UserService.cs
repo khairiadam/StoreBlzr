@@ -171,6 +171,7 @@ namespace StoreBlzr.Server.Services.Users
             var result = await _userManager.DeleteAsync(user);
             // _db.Remove(user);
             if (!result.Succeeded) return false;
+
             return true;
         }
 
