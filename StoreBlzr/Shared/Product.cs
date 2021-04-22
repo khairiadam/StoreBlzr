@@ -17,7 +17,7 @@ namespace Shared
         [Required(ErrorMessage = "Quantity is required")]  public int Quantity { get; set; }
         [Required(ErrorMessage = "Color is required")]  public string Color { get; set; }
         [Required(ErrorMessage = "Price is required")]  public double Price { get; set; }
-        [Required(ErrorMessage = "Category is required")]  public Category ProductCategory { get; set; }
+        public Category ProductCategory { get; set; }
 
         [JsonIgnore]
         public List<Images> ProductImages { get; set; }
