@@ -46,18 +46,7 @@ namespace StoreBlzr.Server.Services.Authentication
 
             //Create new User
 
-            //var user = new ApplicationUser()
-            //{
-            //    UserName = model.UserName,
-            //    Email = model.Email,
-            //    FirstName = model.FirstName,
-            //    LastName = model.LastName
-            //};
-
             var user = _mapper.Map<AppClient>(model);
-
-            // !!/TODO ==> Fix Mapper !!
-            //_mapper.Map<ApplicationUser>(model);
 
             //Create User and Hash Password While Creating
             var result = await _userManager.CreateAsync(user, model.Password);

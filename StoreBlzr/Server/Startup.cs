@@ -56,8 +56,17 @@ namespace StoreBlzr.Server
 
             //!! Add Identity with Roles ===>
             services.AddIdentity<AppClient, IdentityRole>(opt =>
+            {
 
-                opt.SignIn.RequireConfirmedAccount = false)
+                opt.Password.RequiredLength = 4;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireDigit = false;
+
+                opt.SignIn.RequireConfirmedAccount = false;
+            }
+            )
                 .AddEntityFrameworkStores<StoreDbContext>();
 
 
