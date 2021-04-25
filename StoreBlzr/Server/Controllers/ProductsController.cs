@@ -47,7 +47,7 @@ namespace StoreBlzr.Server.Controllers
             }
 
 
-            return Ok();
+            return Ok(result);
 
 
 
@@ -63,22 +63,22 @@ namespace StoreBlzr.Server.Controllers
                 return BadRequest();
             }
 
-            await _iTypeCrud.Post(model);
+            var result =   await _iTypeCrud.Post(model);
           
 
-            return Ok("Product Created successful");
+            return Ok(result);
 
 
 
         }
 
         [HttpDelete("Delete/{Id}")]
-        public async Task<IActionResult> DeleteProduct(string Id)
+        public async Task<IActionResult> DeleteProduct(string id)
         {
 
             if (ModelState.IsValid)
             {
-                  var result =  _iTypeCrud.Delete(Id);
+                await _iTypeCrud.Delete(id);
             }
 
 
