@@ -10,12 +10,12 @@ namespace StoreBlzr.Server.Controllers
     // [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IAuthService _authService;
 
-        public UserController(IUserService userService, IAuthService authService)
+        public UsersController(IUserService userService, IAuthService authService)
         {
             _authService = authService;
             _userService = userService;

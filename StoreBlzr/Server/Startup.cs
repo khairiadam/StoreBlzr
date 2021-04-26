@@ -56,8 +56,17 @@ namespace StoreBlzr.Server
 
             //!! Add Identity with Roles ===>
             services.AddIdentity<AppClient, IdentityRole>(opt =>
+            {
 
-                opt.SignIn.RequireConfirmedAccount = false)
+                opt.Password.RequiredLength = 4;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireDigit = false;
+
+                opt.SignIn.RequireConfirmedAccount = false;
+            }
+            )
                 .AddEntityFrameworkStores<StoreDbContext>();
 
 
@@ -76,7 +85,6 @@ namespace StoreBlzr.Server
             services.AddScoped<ITypeCrud<Category>, CategoryService>();
 
 
-
             //!! _ AddAutoMapper ===>
             services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(c =>
@@ -85,13 +93,11 @@ namespace StoreBlzr.Server
             });
 
 
-
             //!! Add JWT AUTH ===>
             services.AddAuthentication(options =>
                      {
                          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
                      })
                      .AddJwtBearer(o =>
                         {
@@ -110,14 +116,15 @@ namespace StoreBlzr.Server
                         });
 
 
-            //!! Add Notification
-            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions
-            {
-                ProgressBar = true,
-                TitleClass = "text-dark"
+            // //!! Add Notification
+            // services.AddMvc().AddNToastNotifyToastr(new ToastrOptions
+            // {
+            //     ProgressBar = true,
+            //     TitleClass = "text-dark"
+            // });
 
-            });
 
+            //!! Add ControllerAndViews
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
