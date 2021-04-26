@@ -73,7 +73,8 @@ namespace StoreBlzr.Server.Controllers
         [HttpPut("Edit")]
         public async Task<IActionResult> Update(string id, Order order)
         {
-
+            if (string.IsNullOrEmpty(id) && id != order.Id) return BadRequest();
+        
             await _order.Put(order);
 
             return Ok(order);
