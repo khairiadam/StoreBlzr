@@ -7,10 +7,10 @@ namespace StoreBlzr.Server.Services.Users
     public interface IUserService
     {
 
-        Task<List<UserModel>> GetUsersAsync();
-        Task<UserModel> GetUserAsync(string userId);
-        Task<UserModel> PutUserAsync(string userId, EditUserModel updatedUser);
-        Task<bool> DeleteUserAsync(string userId);
+        Task<List<UserModel>> GetAll();
+        Task<UserModel> Get(string userId);
+        Task<UserModel> Put(EditUserModel updatedUser);
+        Task<bool> Delete(string userId);
 
         // Roles
         Task<string> AddRoleAsync(AddRoleModel model);

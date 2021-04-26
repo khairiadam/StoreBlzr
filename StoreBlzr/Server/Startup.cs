@@ -56,8 +56,17 @@ namespace StoreBlzr.Server
 
             //!! Add Identity with Roles ===>
             services.AddIdentity<AppClient, IdentityRole>(opt =>
+            {
 
-                opt.SignIn.RequireConfirmedAccount = false)
+                opt.Password.RequiredLength = 4;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireDigit = false;
+
+                opt.SignIn.RequireConfirmedAccount = false;
+            }
+            )
                 .AddEntityFrameworkStores<StoreDbContext>();
 
 
@@ -71,9 +80,9 @@ namespace StoreBlzr.Server
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOrderService, OrderService>();
-            // services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ITypeCrud<Category>, CategoryService>();
+            // services.AddScoped<ITypeCrud<Category>, CategoryService>();
 
 
             //!! _ AddAutoMapper ===>
@@ -84,13 +93,11 @@ namespace StoreBlzr.Server
             });
 
 
-
             //!! Add JWT AUTH ===>
             services.AddAuthentication(options =>
                      {
                          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
                      })
                      .AddJwtBearer(o =>
                         {
@@ -109,14 +116,15 @@ namespace StoreBlzr.Server
                         });
 
 
-            //!! Add Notification
-            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions
-            {
-                ProgressBar = true,
-                TitleClass = "text-dark"
+            // //!! Add Notification
+            // services.AddMvc().AddNToastNotifyToastr(new ToastrOptions
+            // {
+            //     ProgressBar = true,
+            //     TitleClass = "text-dark"
+            // });
 
-            });
 
+            //!! Add ControllerAndViews
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

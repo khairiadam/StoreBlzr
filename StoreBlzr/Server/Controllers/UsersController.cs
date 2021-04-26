@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StoreBlzr.Server.Services.Authentication;
@@ -9,12 +10,12 @@ namespace StoreBlzr.Server.Controllers
     // [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IAuthService _authService;
 
-        public UserController(IUserService userService, IAuthService authService)
+        public UsersController(IUserService userService, IAuthService authService)
         {
             _authService = authService;
             _userService = userService;
@@ -23,7 +24,7 @@ namespace StoreBlzr.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _userService.GetUsersAsync();
+            var users = await _userService.GetAll();
 
             if (users == null) return BadRequest(ModelState);
 
@@ -36,7 +37,7 @@ namespace StoreBlzr.Server.Controllers
         {
             // if (ModelState.IsValid) return BadRequest(ModelState);
 
-            var result = await _userService.GetUserAsync(id);
+            var result = await _userService.Get(id);
 
             if (result is null) return BadRequest(result.Message);
 
@@ -49,7 +50,8 @@ namespace StoreBlzr.Server.Controllers
         public async Task<IActionResult> AddUser([FromBody] UserModel model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-
+            model.Id = Guid.NewGuid().ToString();
+            // var usermodel =
             //Register User and Get the Result
             var result = await _authService.RegisterAsync(model);
 
@@ -66,9 +68,10 @@ namespace StoreBlzr.Server.Controllers
         [HttpPut("Edit")]
         public async Task<IActionResult> EditUser(string userId, EditUserModel user)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid || userId != user.Id) return BadRequest(ModelState);
 
-            var result = await _userService.PutUserAsync(userId, user);
+
+            var result = await _userService.Put(user);
 
             if (!string.IsNullOrEmpty(result.Message)) return BadRequest(result.Message);
             return Ok(result);
@@ -79,7 +82,7 @@ namespace StoreBlzr.Server.Controllers
         public async Task<IActionResult> DeleteUser(string id)
         {
 
-            if (!await _userService.DeleteUserAsync(id)) return BadRequest(new { Message = "Couldn't Delete User !" });
+            if (!await _userService.Delete(id)) return BadRequest(new { Message = "Couldn't Delete User !" });
 
             return Ok(new { Message = "User deleted successfully." });
 

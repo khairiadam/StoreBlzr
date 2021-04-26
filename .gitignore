@@ -362,7 +362,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-# Ignore appsettings.json file
 StoreBlzr/Server/appsettings.json
-
+**/**/*appsettings.json
+StoreBlzr/Server/appsettings.json
+StoreBlzr/Server/appsettings.json
+StoreBlzr/Server/appsettings.json

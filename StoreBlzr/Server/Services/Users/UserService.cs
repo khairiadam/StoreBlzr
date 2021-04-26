@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+
 using StoreBlzr.Server.Help;
 using StoreBlzr.Shared;
 using StoreBlzr.Shared.Dto;
@@ -33,7 +34,28 @@ namespace StoreBlzr.Server.Services.Users
 
 
 
-        public async Task<UserModel> GetUserAsync(string userId)
+
+        public async Task<List<UserModel>> GetAll()
+        {
+            var users = await _userManager.Users.ToListAsync();
+
+            if (users.Count <= 0) return new List<UserModel>();
+
+            // var usersModel = _mapper.Map<List<UserModel>>(users);
+            List<UserModel> list = new List<UserModel>();
+            users.ForEach(u =>
+           {
+               var userModell = _mapper.Map<UserModel>(u);
+               list.Add(userModell);
+           });
+
+            return list;
+
+        }
+
+
+
+        public async Task<UserModel> Get(string userId)
         {
             if (userId is null)
                 return new UserModel { Message = "Invalid User Id" };
@@ -55,39 +77,19 @@ namespace StoreBlzr.Server.Services.Users
 
 
 
-        public async Task<List<UserModel>> GetUsersAsync()
-        {
-            var users = await _userManager.Users.ToListAsync();
 
-            if (users.Count <= 0) return new List<UserModel>();
-
-            // var usersModel = _mapper.Map<List<UserModel>>(users);
-            List<UserModel> list = new List<UserModel>();
-            users.ForEach(u =>
-           {
-               var userModell = _mapper.Map<UserModel>(u);
-               list.Add(userModell);
-           });
-
-            return list;
-
-        }
-
-
-
-
-        public async Task<UserModel> PutUserAsync(string userId, EditUserModel updatedUser)
+        public async Task<UserModel> Put(EditUserModel updatedUser)
         {
             var UserModel = new UserModel();
             UserModel = _mapper.Map<UserModel>(updatedUser);
 
-            if (userId == null)
+            if (string.IsNullOrEmpty(updatedUser.Id))
             {
-                UserModel.Message = "Invalid Id";
+                UserModel.Message = "Invalid user";
                 return UserModel;
             }
 
-            var oldUser = await _userManager.FindByIdAsync(userId);
+            var oldUser = await _userManager.FindByIdAsync(updatedUser.Id);
 
             if (oldUser is null)
             {
@@ -119,16 +121,24 @@ namespace StoreBlzr.Server.Services.Users
 
                 UserModel.Password = "";
 
-                // oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
-                // oldUser.FirstName = string.IsNullOrEmpty(updatedUser.FirstName) ? oldUser.FirstName : updatedUser.FirstName;
-                // oldUser.LastName = string.IsNullOrEmpty(updatedUser.LastName) ? oldUser.LastName : updatedUser.LastName;
-                // oldUser.UserName = string.IsNullOrEmpty(updatedUser.UserName) ? oldUser.UserName : updatedUser.UserName;
-                // oldUser.PhoneNumber = string.IsNullOrEmpty(updatedUser.PhoneNumber) ? oldUser.PhoneNumber : updatedUser.PhoneNumber;
+                oldUser.Email = Ex.Check(oldUser.Email, updatedUser.Email);
+                oldUser.FirstName = Ex.Check(oldUser.FirstName, updatedUser.FirstName);
+                oldUser.LastName = Ex.Check(oldUser.LastName, updatedUser.LastName);
+                oldUser.UserName = Ex.Check(oldUser.UserName, updatedUser.UserName);
+                oldUser.PhoneNumber = Ex.Check(oldUser.PhoneNumber, updatedUser.PhoneNumber);
+                oldUser.Gender = Ex.Check(oldUser.Gender, updatedUser.Gender);
+                oldUser.Address = Ex.Check(oldUser.Address, updatedUser.Address);
+                oldUser.Country = Ex.Check(oldUser.Country, updatedUser.Country);
+                oldUser.State = Ex.Check(oldUser.State, updatedUser.State);
+                oldUser.City = Ex.Check(oldUser.City, updatedUser.City);
+                oldUser.ZipCode = Ex.Check(oldUser.ZipCode, updatedUser.ZipCode);
 
-                // // _db.Entry(oldUser).State = EntityState.Modified;
-                // //oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
-                // // var oldUser1 = _mapper.Map<ApplicationUser>(updatedUser);
-                // // var uu = _mapper.Map<ApplicationUser>(oldUser1);
+
+
+                // _db.Entry(oldUser).State = EntityState.Modified;
+                //oldUser.Email = string.IsNullOrEmpty(updatedUser.Email) ? oldUser.Email : updatedUser.Email;
+                // var oldUser1 = _mapper.Map<ApplicationUser>(updatedUser);
+                // var uu = _mapper.Map<ApplicationUser>(oldUser1);
 
 
 
@@ -152,7 +162,7 @@ namespace StoreBlzr.Server.Services.Users
 
 
 
-        public async Task<bool> DeleteUserAsync(string userId)
+        public async Task<bool> Delete(string userId)
         {
             if (string.IsNullOrEmpty(userId)) return false;
 
@@ -161,10 +171,9 @@ namespace StoreBlzr.Server.Services.Users
             var result = await _userManager.DeleteAsync(user);
             // _db.Remove(user);
             if (!result.Succeeded) return false;
+
             return true;
         }
-
-
 
 
 

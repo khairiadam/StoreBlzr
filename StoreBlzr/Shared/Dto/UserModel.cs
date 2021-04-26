@@ -4,6 +4,8 @@ namespace StoreBlzr.Shared.Dto
 {
     public class UserModel
     {
+        //TODO: Remove the ID
+        public string Id { get; set; }
         [Required, StringLength(100)]
         public string FirstName { get; set; }
 
@@ -13,13 +15,9 @@ namespace StoreBlzr.Shared.Dto
         [Required, StringLength(50)]
         public string UserName { get; set; }
 
-        [Required, StringLength(128)]
+        [Required, StringLength(128), EmailAddress]
         public string Email { get; set; }
 
-
-
-        [Required, StringLength(256)]
-        public string Password { get; set; }
         [Required]
         public string Gender { get; set; }
         [Required]
@@ -34,5 +32,10 @@ namespace StoreBlzr.Shared.Dto
         public string ZipCode { get; set; }
 
         public string Message { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        [Required, StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+        public string Password { get; set; }
     }
 }
