@@ -11,8 +11,8 @@ namespace StoreBlzr.Client.Components
     {
         [Inject]
         public IAuthDataService AuthService { get; set; }
-        public UserModel User { get; set; }
 
+        public UserModel User { get; set; } = new UserModel();
         [Parameter]
         public EventCallback<bool> CloseEventCallback { get; set; }
 

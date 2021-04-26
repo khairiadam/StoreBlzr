@@ -15,7 +15,7 @@ namespace StoreBlzr.Shared.Dto
         [Required, StringLength(50)]
         public string UserName { get; set; }
 
-        [Required, StringLength(128)]
+        [Required, StringLength(128), EmailAddress]
         public string Email { get; set; }
 
         [Required]

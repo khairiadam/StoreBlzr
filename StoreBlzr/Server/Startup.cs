@@ -80,9 +80,9 @@ namespace StoreBlzr.Server
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ITypeCrud<Order>, OrderService>();
-            // services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ITypeCrud<Category>, CategoryService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IOrderService, OrderService>();
+            // services.AddScoped<ITypeCrud<Category>, CategoryService>();
 
 
             //!! _ AddAutoMapper ===>

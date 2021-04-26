@@ -1,50 +1,121 @@
-@if (ShowDialog)
 
-{
-    <EditForm Model="User" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@User" OnValidSubmit="@HandleValidSubmit">
 
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+    <DataAnnotationsValidator />
 
-        <div class="form-group">
+    <div class="form-group">
 
-            <label for="Email">First name: </label>
-            <InputText id="FirstName" class="form-control" @bind-Value="@User.FirstName" placeholder="Enter first name">
-            </InputText>
-            <ValidationMessage For="@(() => User.FirstName)" />
+        <label for="FirstName">First name: </label>
+        <InputText id="FirstName" class="form-control" @bind-Value="@User.FirstName" placeholder="Enter first name">
+        </InputText>
+        <ValidationMessage For="@(() => User.FirstName)" />
 
-        </div>
+    </div>
 
-        <div class="form-group">
+    <div class="form-group">
 
-            <label for="LastName">Last name: </label>
-            <InputText id="LastName" class="form-control" @bind-Value="@User.LastName" placeholder="Enter last name">
-            </InputText>
-            <ValidationMessage For="@(() => User.LastName)" />
+        <label for="LastName">Last name: </label>
+        <InputText id="LastName" class="form-control" @bind-Value="@User.LastName" placeholder="Enter last name">
+        </InputText>
+        <ValidationMessage For="@(() => User.LastName)" />
 
-        </div>
+    </div>
 
-        <div class="form-group">
+    <div class="form-group">
 
-            <label for="Email">Email: </label>
-            <InputText id="Email" class="form-control" @bind-Value="@User.Email" placeholder="Enter Email">
-            </InputText>
-            <ValidationMessage For="@(() => User.Email)" />
+        <label for="Email">Email: </label>
+        <InputText id="Email" class="form-control" @bind-Value="@User.Email" placeholder="Enter Email">
+        </InputText>
+        <ValidationMessage For="@(() => User.Email)" />
 
-        </div>
-
-        <div class="form-group">
-
-            <label for="Password">Password: </label>
-            <InputText type="password" id="Password" class="form-control" @bind-Value="@User.Password"
-            placeholder="Enter Password">
-            </InputText>
-            <ValidationMessage For="@(() => User.Password)" />
-
-        </div>
+    </div>
 
 
-        <button type="submit" class="btn btn-primary">Save employee</button>
-    </EditForm>
 
-}
+    <div class="form-group">
+
+        <label for="UserName">UserName: </label>
+        <InputText id="UserName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter UserName">
+        </InputText>
+        <ValidationMessage For="@(() => User.UserName)" />
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="Gender">Gender: </label>
+        <InputText id="Gender" class="form-control" @bind-Value="@User.Gender" placeholder="Enter Gender">
+        </InputText>
+        <ValidationMessage For="@(() => User.Gender)" />
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="Address">Address: </label>
+        <InputText id="Address" class="form-control" @bind-Value="@User.Address" placeholder="Enter Address">
+        </InputText>
+        <ValidationMessage For="@(() => User.Address)" />
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="Country">Country: </label>
+        <InputText id="Country" class="form-control" @bind-Value="@User.Country" placeholder="Enter Country">
+        </InputText>
+        <ValidationMessage For="@(() => User.Country)" />
+
+    </div>
+
+
+
+    <div class="form-group">
+
+        <label for="State">State: </label>
+        <InputText id="State" class="form-control" @bind-Value="@User.State" placeholder="Enter State">
+        </InputText>
+        <ValidationMessage For="@(() => User.State)" />
+
+    </div>
+
+
+
+    <div class="form-group">
+
+        <label for="City">City: </label>
+        <InputText id="City" class="form-control" @bind-Value="@User.City" placeholder="Enter City">
+        </InputText>
+        <ValidationMessage For="@(() => User.City)" />
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="ZipCode">ZipCode: </label>
+        <InputText id="ZipCode" class="form-control" @bind-Value="@User.ZipCode" placeholder="Enter ZipCode">
+        </InputText>
+        <ValidationMessage For="@(() => User.ZipCode)" />
+
+    </div>
+
+
+
+    <div class="form-group">
+
+        <label for="Password">Password: </label>
+        <InputText type="password" id="Password" class="form-control" @bind-Value="@User.Password"
+                   placeholder="Enter Password">
+        </InputText>
+        <ValidationMessage For="@(() => User.Password)" />
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save employee</button>
+</EditForm>
+
+

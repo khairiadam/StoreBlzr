@@ -7,7 +7,7 @@ using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server.Services.Categories
 {
-    public class CategoryService : ITypeCrud<Category>
+    public class CategoryService : ICategoryService
     {
         private readonly StoreDbContext _db;
         public CategoryService(StoreDbContext db)

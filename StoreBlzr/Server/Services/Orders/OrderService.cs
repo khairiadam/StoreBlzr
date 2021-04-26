@@ -8,7 +8,7 @@ using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server.Services.Orders
 {
-    public class OrderService : ITypeCrud<Order>
+    public class OrderService : IOrderService
     {
 
         private readonly StoreDbContext _db;
@@ -28,7 +28,7 @@ namespace StoreBlzr.Server.Services.Orders
         {
             var find = await _db.Orders.FindAsync(id);
             return find;
-        } 
+        }
 
         public async Task<List<Order>> GetAll()
         {
@@ -49,6 +49,16 @@ namespace StoreBlzr.Server.Services.Orders
             _db.Entry(type).State = EntityState.Modified;
             await _db.SaveChangesAsync();
 
+        }
+
+        Task<Order> IOrderService.Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Order> IOrderService.Put(Order Order)
+        {
+            throw new NotImplementedException();
         }
     }
 }
