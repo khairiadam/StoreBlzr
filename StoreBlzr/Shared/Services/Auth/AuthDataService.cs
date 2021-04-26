@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -20,9 +21,11 @@ namespace StoreBlzr.Shared.Services.Auth
 
         public async Task<AuthModel> RegisterAsync(UserModel model)
         {
+            model.Id = Guid.NewGuid().ToString();
+
             var userJson = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("api/Auth/login", userJson);
+            var response = await _httpClient.PostAsync("api/Auth/Register", userJson);
 
             if (response.IsSuccessStatusCode)
             {

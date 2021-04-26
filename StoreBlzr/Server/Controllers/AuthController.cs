@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StoreBlzr.Server.Services.Authentication;
@@ -30,7 +31,7 @@ namespace StoreBlzr.Server.Controllers
         {
             //Check the Model State(Annotaions)
             if (!ModelState.IsValid) return BadRequest(ModelState);
-
+            model.Id = Guid.NewGuid().ToString();
             //Register User and Get the Result
             var result = await _authService.RegisterAsync(model);
 
