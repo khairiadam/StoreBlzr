@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using StoreBlzr.Server.Services.Categories;
 using StoreBlzr.Shared;
 using Server.Services;
+using System.IO;
 
 namespace StoreBlzr.Server.Controllers
 {
@@ -35,12 +36,14 @@ namespace StoreBlzr.Server.Controllers
         }
 
         [HttpPost("AddCategory")]
-        public async Task<IActionResult> AddCategories(Category category)
+        public async Task<IActionResult> AddCategories([FromForm] Category category)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+            
 
             await _category.Post(category);
             return Ok(category);

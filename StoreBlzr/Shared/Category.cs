@@ -18,5 +18,6 @@ namespace StoreBlzr.Shared
 
         [JsonIgnore]
         public List<Product> Products { get; set; }
+
     }
 }

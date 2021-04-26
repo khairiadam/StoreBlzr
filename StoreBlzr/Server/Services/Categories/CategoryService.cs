@@ -1,5 +1,10 @@
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Server.Services;
 using StoreBlzr.Server.Data;
@@ -31,10 +36,21 @@ namespace StoreBlzr.Server.Services.Categories
         public async Task<List<Category>> GetAll()
         {
            return await _db.Categories.ToListAsync();
+           
         }
 
         public async Task<Category> Post(Category category)
         {
+            byte[] x = await File.ReadAllBytesAsync(category.Image.ToString());
+            category.Image = x.OfType<byte>().ToArray();
+            //List<IFormFile> uploadFile = new();
+            //foreach (var file in uploadFile)
+            //{
+            //    MemoryStream ms = new();
+            //    await file.CopyToAsync(ms);
+            //    category.Image = ms.ToArray();
+            //}
+            
             _db.Categories.Add(category);
             await _db.SaveChangesAsync();
             return category;
