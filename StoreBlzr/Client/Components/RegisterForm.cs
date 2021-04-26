@@ -9,29 +9,32 @@ namespace StoreBlzr.Client.Components
 {
     public partial class RegisterForm
     {
+        [Inject]
         public IAuthDataService AuthService { get; set; }
         public UserModel User { get; set; }
+
+        [Parameter]
         public EventCallback<bool> CloseEventCallback { get; set; }
 
-        // public bool ShowDialog { get; set; }
+        public bool ShowDialog { get; set; }
 
-        // public void Show()
-        // {
-        //     ResetDialog();
-        //     ShowDialog = true;
-        //     StateHasChanged();
-        // }
+        public void Show()
+        {
+            ResetDialog();
+            ShowDialog = true;
+            StateHasChanged();
+        }
 
-        // public void Close()
-        // {
-        //     ShowDialog = false;
-        //     StateHasChanged();
-        // }
+        public void Close()
+        {
+            ShowDialog = false;
+            StateHasChanged();
+        }
 
-        // private void ResetDialog()
-        // {
-        //     user = new UserModel();
-        // }
+        private void ResetDialog()
+        {
+            User = new UserModel();
+        }
         protected async Task HandleValidSubmit()
         {
             await AuthService.RegisterAsync(User);
