@@ -8,9 +8,9 @@ namespace StoreBlzr.Server.Services.Orders
     {
          Task<List<Order>> GetAll();
          Task<Order> Get(string id);
-         Task<Order> Post(Order Order);
-         Task<Order> Put(Order Order);
-         Task<Order> Delete(string id);
+         Task<bool> Post(Order Order);
+         Task<bool> Put(Order Order);
+         Task<bool> Delete(string id);
 
     }
 }

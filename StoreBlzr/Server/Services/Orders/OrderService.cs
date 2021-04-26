@@ -17,11 +17,13 @@ namespace StoreBlzr.Server.Services.Orders
             _db = db;
         }
 
-        public async Task Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             var supOrder = await _db.Orders.FindAsync(id);
-             _db.Orders.Remove(supOrder);
+            if (supOrder is null) return false;
+            _db.Orders.Remove(supOrder);
             await _db.SaveChangesAsync();
+            return true;
         }
 
         public async Task<Order> Get(string id)
@@ -36,29 +38,20 @@ namespace StoreBlzr.Server.Services.Orders
 
         }
 
-        public async Task<Order> Post(Order type)
+        public async Task<bool> Post(Order order)
         {
-            _db.Orders.Add(type);
+            if (order == null) return false;
+            _db.Orders.Add(order);
             await _db.SaveChangesAsync();
-            return type;
-
+            return true;
         }
 
-        public async Task Put(Order type)
+        public async Task<bool> Put(Order order)
         {
-            _db.Entry(type).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
-
-        }
-
-        Task<Order> IOrderService.Delete(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Order> IOrderService.Put(Order Order)
-        {
-            throw new NotImplementedException();
+            _db.Entry(order).State = EntityState.Modified;
+            var result = await _db.SaveChangesAsync();
+            if (result < 0) return false;
+            return true;
         }
     }
 }
