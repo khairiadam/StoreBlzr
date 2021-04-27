@@ -16,25 +16,25 @@ namespace StoreBlzr.Client.Components
         [Parameter]
         public EventCallback<bool> CloseEventCallback { get; set; }
 
-        public bool ShowDialog { get; set; }
+        // public bool ShowDialog { get; set; }
 
-        public void Show()
-        {
-            ResetDialog();
-            ShowDialog = true;
-            StateHasChanged();
-        }
+        // public void Show()
+        // {
+        //     ResetDialog();
+        //     ShowDialog = true;
+        //     StateHasChanged();
+        // }
 
-        public void Close()
-        {
-            ShowDialog = false;
-            StateHasChanged();
-        }
+        // public void Close()
+        // {
+        //     ShowDialog = false;
+        //     StateHasChanged();
+        // }
 
-        private void ResetDialog()
-        {
-            User = new UserModel();
-        }
+        // private void ResetDialog()
+        // {
+        //     User = new UserModel();
+        // }
         protected async Task HandleValidSubmit()
         {
             await AuthService.RegisterAsync(User);
