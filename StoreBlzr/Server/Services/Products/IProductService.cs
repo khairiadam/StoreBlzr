@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Shared;
 using StoreBlzr.Shared;
 
@@ -7,10 +8,10 @@ namespace StoreBlzr.Server.Services.Products
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetProducts();
-        Task<Product> Product(string Id);
-        Task<Product> CreateProduct(Product model);
-        Task<string> DeleteProduct(string Id);
-        Task<string> UpdateProduct(string Id, Product model);
+        Task<IEnumerable<Product>> GetAll();
+        Task<Product> Get(string Id);
+        Task<Product> Post(Product model);
+        Task Delete(string Id);
+        Task Update(Product model);
     }
 }

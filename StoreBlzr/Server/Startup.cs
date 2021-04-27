@@ -72,7 +72,7 @@ namespace StoreBlzr.Server
             //!! _ DependencyInjection _ ===>
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITypeCrud<Product>, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICategoryService, CategoryService>();
 

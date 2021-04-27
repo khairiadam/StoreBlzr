@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
+using Microsoft.AspNetCore.Http;
 using Server.Services;
 using Shared;
 using StoreBlzr.Server.Services.Products;
@@ -16,11 +17,13 @@ namespace StoreBlzr.Server.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ITypeCrud<Product> _iTypeCrud;
+        //private readonly ITypeCrud<Product> _iTypeCrud;
 
-        public ProductsController(ITypeCrud<Product> iTypeCrud)
+        private readonly IProductService _iProductService;
+
+        public ProductsController(IProductService iProductService)
         {
-            _iTypeCrud = iTypeCrud;
+            _iProductService = iProductService;
         }
 
 
@@ -29,7 +32,7 @@ namespace StoreBlzr.Server.Controllers
         {
 
 
-            return Ok(await _iTypeCrud.GetAll());
+            return Ok(await _iProductService.GetAll());
 
 
 
@@ -39,7 +42,7 @@ namespace StoreBlzr.Server.Controllers
         [HttpGet("GetProduct/{Id}")]
         public async Task<IActionResult> Getproduct(string id)
         {
-          var result =  await _iTypeCrud.Get(id);
+          var result =  await _iProductService.Get(id);
 
             if (result == null)
             {
@@ -56,17 +59,17 @@ namespace StoreBlzr.Server.Controllers
 
         [HttpPost("Post")]
 
-        public async Task<IActionResult> CreateProduct(Product model)
+        public async Task<IActionResult> Post( [FromBody] Product model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("something went wrong");
             }
 
-            var result =   await _iTypeCrud.Post(model);
+            await _iProductService.Post(model);
           
 
-            return Ok(result);
+            return Ok(model);
 
 
 
@@ -78,7 +81,7 @@ namespace StoreBlzr.Server.Controllers
 
             if (ModelState.IsValid)
             {
-                await _iTypeCrud.Delete(id);
+                await _iProductService.Delete(id);
             }
 
 
@@ -103,23 +106,16 @@ namespace StoreBlzr.Server.Controllers
 
 
 
-        [HttpPut("update/{Id}")]
-        public async Task<IActionResult> Update(string Id, Product product)
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> Put(string id,Product product)
         {
+            //if (id != product.Id)
+            //{
+            //    return BadRequest();
+            //}
 
-            
-            var result =  _iTypeCrud.Put(product);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(result);
-
-
-
-
+            await _iProductService.Update(product);
+            return Ok(product);
         }
 
 

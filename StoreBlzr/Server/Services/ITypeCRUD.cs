@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Server.Services
 {
@@ -7,7 +8,7 @@ namespace Server.Services
     {
         Task<List<T>> GetAll();
         Task<T> Get(string id);
-        Task<T> Post(T category);
+        Task<T> Post(T category , List<IFormFile> image);
         Task Put(T category);
         Task Delete(string id);
 
