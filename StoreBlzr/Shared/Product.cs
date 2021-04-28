@@ -18,6 +18,7 @@ namespace StoreBlzr.Shared
         public string Color { get; set; }
         public double Price { get; set; }
         public Category ProductCategory { get; set; }
+        public string ProductCategoryId { get; set; }
         [JsonIgnore]
         public List<Images> ProductImages { get; set; }
 
