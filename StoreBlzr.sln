@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreBlzr.Server", "StoreBlzr\Server\StoreBlzr.Server.csproj", "{103F90C9-F696-40A8-A83F-129D895A1479}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBlzr.Server", "StoreBlzr\Server\StoreBlzr.Server.csproj", "{103F90C9-F696-40A8-A83F-129D895A1479}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreBlzr.Client", "StoreBlzr\Client\StoreBlzr.Client.csproj", "{C6D3E962-F6CF-4BF6-BFD3-CB4844407230}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBlzr.Client", "StoreBlzr\Client\StoreBlzr.Client.csproj", "{C6D3E962-F6CF-4BF6-BFD3-CB4844407230}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreBlzr.Shared", "StoreBlzr\Shared\StoreBlzr.Shared.csproj", "{AE195B15-CC03-41D9-B5D4-8EA7AA65A0F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBlzr.Shared", "StoreBlzr\Shared\StoreBlzr.Shared.csproj", "{AE195B15-CC03-41D9-B5D4-8EA7AA65A0F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

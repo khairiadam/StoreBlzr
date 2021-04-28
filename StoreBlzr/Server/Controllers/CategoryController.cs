@@ -15,9 +15,9 @@ namespace StoreBlzr.Server.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ITypeCrud<Category> _category;
+        private readonly ICategoryService _category;
 
-        public CategoryController(ITypeCrud<Category> category)
+        public CategoryController(ICategoryService category)
         {
             _category = category;
         }
@@ -36,7 +36,7 @@ namespace StoreBlzr.Server.Controllers
         }
 
         [HttpPost("AddCategory")]
-        public async Task<IActionResult> AddCategories([FromForm] Category category)
+        public async Task<IActionResult> AddCategories([FromForm] Category category, List<IFormFile> image)
         {
             
             if (!ModelState.IsValid)
@@ -45,7 +45,7 @@ namespace StoreBlzr.Server.Controllers
             }
             
 
-            await _category.Post(category);
+            await _category.Post(category, image);
             return Ok(category);
         }
 
@@ -57,14 +57,14 @@ namespace StoreBlzr.Server.Controllers
         }
 
         [HttpPut("UpdateCategory")]
-        public async Task<IActionResult> Edit(string id, Category category)
+        public async Task<IActionResult> Edit(string id,[FromForm] Category category, List<IFormFile> image)
         {
             if (id != category.Id)
             {
                 return BadRequest();
             }
 
-            await _category.Put(category);
+            await _category.Put(category, image);
             return Ok(category);
         }
     }
