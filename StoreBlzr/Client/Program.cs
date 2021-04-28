@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StoreBlzr.Shared.Services.Auth;
 using MudBlazor.Services;
+using MudBlazor;
 
 namespace StoreBlzr.Client
 {
@@ -21,7 +22,8 @@ namespace StoreBlzr.Client
 
             // Bulma Service
             // builder.Services.AddBulmaRazor();
-            builder.Services.AddMudServices();
+            // builder.Services.AddMudServices();
+            builder.Services.AddMudServices(c => { c.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopCenter; });
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddHttpClient<IAuthDataService, AuthDataService>(client => client.BaseAddress = new Uri("https://localhost:5001/"));
