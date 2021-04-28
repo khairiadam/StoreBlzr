@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Server.Services;
 using StoreBlzr.Server.Data;
+using StoreBlzr.Server.Help;
 using StoreBlzr.Shared;
 
 namespace StoreBlzr.Server.Services.Categories
@@ -53,14 +54,16 @@ namespace StoreBlzr.Server.Services.Categories
 
         public async Task<Category> Post(Category category, List<IFormFile> image)
         {
-            foreach (var file in image)
-            {
-                MemoryStream ms = new();
-                await file.CopyToAsync(ms);
-                category.Image = ms.ToArray();
-                _db.Categories.Add(category);
-                await _db.SaveChangesAsync();
-            }
+            // foreach (var file in image)
+            // {
+            //     MemoryStream ms = new();
+            //     await file.CopyToAsync(ms);
+            //     category.Image = ms.ToArray();
+            // }
+
+            await Ex.AddImg(category, image);
+            _db.Categories.Add(category);
+            await _db.SaveChangesAsync();
             //MemoryStream ms = new();
             //await image.CopyToAsync(ms);
             //category.Image = ms.ToArray();
@@ -85,7 +88,7 @@ namespace StoreBlzr.Server.Services.Categories
                 await _db.SaveChangesAsync();
             }
 
-            
+
             //_db.Entry(category).State = EntityState.Modified;
             //await _db.SaveChangesAsync();
         }

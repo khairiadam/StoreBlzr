@@ -9,6 +9,7 @@ namespace StoreBlzr.Shared
         [Key, Column(Order = 0)]
         public string Id { get; set; }
         public Product ProductImg { get; set; }
+        public string ProductImgId { get; set; }
         public byte[] Image { get; set; }
 
     }
